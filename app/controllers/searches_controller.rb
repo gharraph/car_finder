@@ -10,6 +10,7 @@ class SearchesController < ApplicationController
     @craigs_list_search = Search.new
     @craigs_list_search.build_craigs_list_url(params[:search][:url])
     @craigs_list_search.name = "Graigs List"
+    @craigs_list_search.displayable = true
     @craigs_list_search.save
     @craigs_list_search.find_craigs_list_results
     

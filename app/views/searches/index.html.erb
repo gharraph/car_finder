@@ -1,8 +1,11 @@
 <% @searches.each do |search| %>
-	<%= search.name %></br>
-	<% search.results.each do |result| %>
-		<%= result.link %></br>
-		<%= result.price%></br>	
-		<%= result.sold_by%></br>	
-	<% end %>
+	<% if search.displayable == "t" %>
+		<%= search.name %></br>
+		<% search.results.each do |result| %>
+			<%= result.link %></br>
+			<%= result.price%></br>	
+			<%= result.sold_by%></br>	
+		<% end %>
+		<% search.update_attributes(:displayable => false) %>
+		<% end %>
 <% end %>

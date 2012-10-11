@@ -1,8 +1,13 @@
 class Search < ActiveRecord::Base
-  attr_accessible :name, :url
+  attr_accessible :name, :url, :displayable
+  
+  def intialize 
+    super
+    self.displayable = false
+  end
+  
   
   has_many :results
-  
   
   def build_craigs_list_url (search_string)
     search_words = search_string.split(' ')
