@@ -1,8 +1,7 @@
 CarFinder::Application.routes.draw do
 
-  resources :searches do
-    resources :results
-  end
+  resources :searches
+
 
   root :to => "searches#new"
 

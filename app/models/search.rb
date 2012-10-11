@@ -16,4 +16,16 @@ class Search < ActiveRecord::Base
     self.url << "&srchType=A&minAsk=&maxAsk="   
   end
   
+  def find_craigs_list_results
+     doc = Nokogiri::HTML(open(self.url))
+      doc.css(".row"). each do |row|
+        result = self.results.create
+        result.link = row.at_css("a").text
+        result.price = row.at_css(".itempp").text[/[0-9\.]+/]
+        result.sold_by = row.at_css(".gc a").text
+        result.save
+      end
+  end
+  
+  
 end

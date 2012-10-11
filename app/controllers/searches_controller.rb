@@ -8,27 +8,20 @@ class SearchesController < ApplicationController
   
   def create
     @craigs_list_search = Search.new
-    
     @craigs_list_search.build_craigs_list_url(params[:search][:url])
     @craigs_list_search.name = "Graigs List"
     @craigs_list_search.save
-    
-    doc = Nokogiri::HTML(open(@craigs_list_search.url))
-    doc.css(".row"). each do |row|
-      result = @craigs_list_search.results.create
-      result.link = row.at_css("a").text
-      result.price = row.at_css(".itempp").text[/\$[0-9\.]+/]
-      result.sold_by = row.at_css(".gc a").text
-      result.save
-    end
+    @craigs_list_search.find_craigs_list_results
     
     
-    redirect_to searches_path
-    
+    #more sites can be scraped for the same search
+    #@angel_list_search = Search.new
     #@angel_list_search.build_angel_list_url(param[:search])
     #@angel_list_search.name = "Angel List"
     #@angel_list_search.Save
+    #@angel_list_search.find_angel_list_results
     
+    redirect_to searches_path
   end
   
   def index
