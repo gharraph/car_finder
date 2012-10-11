@@ -1,7 +1,10 @@
 CarFinder::Application.routes.draw do
-  resource :results
 
-  root :to => "result#index"
+  resources :searches do
+    resources :results
+  end
+
+  root :to => "searches#new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
